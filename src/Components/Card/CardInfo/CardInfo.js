@@ -141,8 +141,8 @@ function CardInfo(props) {
                 <Trash onClick={() => removeTask(item.id)} />
               </div>
             ))}
-            
           </div>
+          
           <Editable
             text={"Add a Task"}
             placeholder="Enter task"

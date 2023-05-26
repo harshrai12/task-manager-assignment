@@ -16,25 +16,53 @@ function App() {
     cid: "",
   });
 
+
   const addboardHandler = (name) => {
+    // Create a copy of the boards array using the spread operator
     const tempBoards = [...boards];
+    // Create a new board object
     tempBoards.push({
+      // Generate a unique ID for the new board
       id: Date.now() + Math.random() * 2,
+      // Set the provided name as the title of the new board
       title: name,
+      // Initialize an empty array for the cards property of the new board
       cards: [],
     });
+    // Update the state with the new boards array, triggering a re-render
     setBoards(tempBoards);
   };
 
   const removeBoard = (id) => {
+    // Find the index of the board with the given id in the boards array
     const index = boards.findIndex((item) => item.id === id);
+    // If the board is not found, return without making any changes
     if (index < 0) return;
-
+    // Create a copy of the boards array using the spread operator
     const tempBoards = [...boards];
+    // Remove the board at the found index from the tempBoards array
     tempBoards.splice(index, 1);
+    // Update the state with the modified tempBoards array, triggering a re-render
     setBoards(tempBoards);
   };
 
+
+
+
+  /**
+
+Adds a new card to the cards array of a specific board in the boards array.
+Find the index of the board with the given ID in the boards array.
+If the board is not found (index < 0), return without making any changes.
+Create a copy of the boards array using the spread operator.
+Push a new card object to the cards array of the specified board.
+Generate a unique ID for the new card using Date.now() and Math.random().
+Set the provided title for the new card.
+Initialize an empty array for labels.
+Set an empty string for the date.
+Initialize an empty array for tasks.
+Update the state with the modified tempBoards array, triggering a re-render.
+*/
   const addCardHandler = (id, title) => {
     const index = boards.findIndex((item) => item.id === id);
     if (index < 0) return;
@@ -61,6 +89,21 @@ function App() {
     if (cardIndex < 0) return;
 
     cards.splice(cardIndex, 1);
+    setBoards(tempBoards);
+  };
+
+  const updateCard = (bid, cid, card) => {
+    const index = boards.findIndex((item) => item.id === bid);
+    if (index < 0) return;
+
+    const tempBoards = [...boards];
+    const cards = tempBoards[index].cards;
+
+    const cardIndex = cards.findIndex((item) => item.id === cid);
+    if (cardIndex < 0) return;
+
+    tempBoards[index].cards[cardIndex] = card;
+
     setBoards(tempBoards);
   };
 
@@ -100,21 +143,6 @@ function App() {
       bid,
       cid,
     });
-  };
-
-  const updateCard = (bid, cid, card) => {
-    const index = boards.findIndex((item) => item.id === bid);
-    if (index < 0) return;
-
-    const tempBoards = [...boards];
-    const cards = tempBoards[index].cards;
-
-    const cardIndex = cards.findIndex((item) => item.id === cid);
-    if (cardIndex < 0) return;
-
-    tempBoards[index].cards[cardIndex] = card;
-
-    setBoards(tempBoards);
   };
 
   useEffect(() => {
