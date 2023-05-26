@@ -5,10 +5,8 @@ import Editable from "./Components/Editabled/Editable";
 
 
 function App() {
-
+  //for toggling darkmode
   const [theme,setTheme]= useState('dark-theme');
-
-
   useEffect(()=>{
    document.body.className=theme;
   },[theme]);
@@ -22,6 +20,7 @@ function App() {
     }
     
   }
+  //local storage of boards
   const [boards, setBoards] = useState(
     JSON.parse(localStorage.getItem("prac-kanban")) || [
     ]
@@ -31,8 +30,6 @@ function App() {
     bid: "",
     cid: "",
   });
-
-
   const addboardHandler = (name) => {
     // Create a copy of the boards array using the spread operator
     const tempBoards = [...boards];
@@ -61,10 +58,6 @@ function App() {
     // Update the state with the modified tempBoards array, triggering a re-render
     setBoards(tempBoards);
   };
-
-
-
-
   /**
 
 Adds a new card to the cards array of a specific board in the boards array.
@@ -195,7 +188,7 @@ Update the state with the modified tempBoards array, triggering a re-render.
     <div className="app">
       <div className="app_nav">
         <h1>Kanban Board</h1>
-        <button onClick={handletheme}>theme</button>
+        <button onClick={handletheme} className="theme"> Switch theme</button>
         <div>
     </div>
       </div>
