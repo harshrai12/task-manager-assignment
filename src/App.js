@@ -6,7 +6,25 @@ import Editable from "./Components/Editabled/Editable";
 
 function App() {
 
+  const [theme,setTheme]= useState('dark-theme');
+
+
+  useEffect(()=>{
+   document.body.className=theme;
+  },[theme]);
+
+  const handletheme=()=>{
+    if(theme==="light-theme"){
+      setTheme("dark-theme");
+    }
+    else {
+      setTheme("light-theme");
+    }
+    
+  }
+
   
+
   const [boards, setBoards] = useState(
     JSON.parse(localStorage.getItem("prac-kanban")) || []
   );
@@ -79,33 +97,57 @@ Update the state with the modified tempBoards array, triggering a re-render.
   };
 
   const removeCard = (bid, cid) => {
+    // Find the index of the board with the given board ID in the boards array
     const index = boards.findIndex((item) => item.id === bid);
+    
+    // If the board is not found, return without making any changes
     if (index < 0) return;
-
+    
+    // Create a copy of the boards array using the spread operator
     const tempBoards = [...boards];
+    
+    // Retrieve the cards array of the specified board
     const cards = tempBoards[index].cards;
-
+    
+    // Find the index of the card with the given card ID in the cards array
     const cardIndex = cards.findIndex((item) => item.id === cid);
+    
+    // If the card is not found, return without making any changes
     if (cardIndex < 0) return;
-
+    
+    // Remove the card from the cards array using the splice() method
     cards.splice(cardIndex, 1);
+    
+    // Update the state with the modified tempBoards array, triggering a re-render
     setBoards(tempBoards);
   };
 
   const updateCard = (bid, cid, card) => {
+    // Find the index of the board with the given board ID in the boards array
     const index = boards.findIndex((item) => item.id === bid);
+    
+    // If the board is not found, return without making any changes
     if (index < 0) return;
-
+    
+    // Create a copy of the boards array using the spread operator
     const tempBoards = [...boards];
+    
+    // Retrieve the cards array of the specified board
     const cards = tempBoards[index].cards;
-
+    
+    // Find the index of the card with the given card ID in the cards array
     const cardIndex = cards.findIndex((item) => item.id === cid);
+    
+    // If the card is not found, return without making any changes
     if (cardIndex < 0) return;
-
+    
+    // Update the card at the specified index with the provided card object
     tempBoards[index].cards[cardIndex] = card;
-
+    
+    // Update the state with the modified tempBoards array, triggering a re-render
     setBoards(tempBoards);
   };
+  
 
   const dragEnded = (bid, cid) => {
     let s_boardIndex, s_cardIndex, t_boardIndex, t_cardIndex;
@@ -149,10 +191,13 @@ Update the state with the modified tempBoards array, triggering a re-render.
     localStorage.setItem("prac-kanban", JSON.stringify(boards));
   }, [boards]);
 
+ 
+
   return (
     <div className="app">
       <div className="app_nav">
         <h1>Kanban Board</h1>
+        <button onClick={handletheme}>theme</button>
         <div>
     </div>
       </div>
@@ -171,14 +216,15 @@ Update the state with the modified tempBoards array, triggering a re-render.
             />
           ))}
           <div className="app_boards_last">
-            <Editable
-              displayClass="app_boards_add-board"
-              editClass="app_boards_add-board_edit"
-              placeholder="Enter Board Name"
-              text="Add Board"
-              buttonText="Add Board"
-              onSubmit={addboardHandler}
-            />
+          <Editable
+          displayClass="app_boards_add-board"
+          editClass="app_boards_add-board_edit"
+          placeholder="Enter Board Name"
+          text="Add Board"
+          buttonText="Add Board"
+          // Specify the callback function to be invoked when the form is submitted
+          onSubmit={addboardHandler}
+        />
           </div>
         </div>
       </div>

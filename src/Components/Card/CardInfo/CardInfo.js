@@ -102,6 +102,7 @@ function CardInfo(props) {
             <Calendar />
             <p>Date</p>
           </div>
+
           <input
             type="date"
             defaultValue={values.date}
