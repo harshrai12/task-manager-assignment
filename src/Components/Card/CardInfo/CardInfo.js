@@ -145,7 +145,7 @@ function CardInfo(props) {
           </div>
           
           <Editable
-            text={"Add a Task"}
+            text={"Add Subtask"}
             placeholder="Enter task"
             onSubmit={addTask}
           />

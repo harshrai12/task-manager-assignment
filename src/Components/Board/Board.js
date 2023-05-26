@@ -51,7 +51,7 @@ function Board(props) {
         ))}
         {/* Render an editable component to add a new card */}
         <Editable
-          text="+ Add Card"
+          text="+ Add task"
           placeholder="Enter Card Title"
           displayClass="board_add-card"
           editClass="board_add-card_edit"
