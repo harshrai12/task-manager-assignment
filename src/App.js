@@ -21,10 +21,154 @@ function App() {
     
   }
   //local storage of boards
-  const [boards, setBoards] = useState(
-    JSON.parse(localStorage.getItem("prac-kanban")) || [
-    ]
-  );
+  const [boards, setBoards] = useState(() => {
+    const storedBoards = localStorage.getItem("kanban");
+    return storedBoards ? JSON.parse(storedBoards) : [
+      {
+        id: Date.now() + Math.random() * 2,
+        title: "Todo",
+        cards: [
+          {
+            id: Date.now() + Math.random(),
+            title: "Conquer the Dragon's Lair",
+            tasks: [
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Gather weapons and armor",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Study the dragon's weaknesses",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Recruit allies for the battle",
+              },
+            ],
+            labels: [],
+            desc: "Embark on a thrilling journey to defeat the mighty dragon and claim its treasure.",
+          },
+          {
+            id: Date.now() + Math.random(),
+            title: "Explore the Enchanted Forest",
+            tasks: [
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Discover hidden pathways",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Seek guidance from mystical creatures",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Collect rare herbs and magical artifacts",
+              },
+            ],
+            labels: [],
+            desc: "Delve into the mysterious depths of the forest, uncovering hidden secrets and magical creatures.",
+          },
+        ],
+      },
+      {
+        id: Date.now() + Math.random() * 2,
+        title: "In Progress",
+        cards: [
+          {
+            id: Date.now() + Math.random(),
+            title: "Retrieve the Lost Relic",
+            tasks: [
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Decode ancient inscriptions",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Navigate treacherous traps",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Outsmart cunning guardians",
+              },
+            ],
+            labels: [],
+            desc: "Embark on a perilous mission to recover the ancient artifact and save the world from darkness.",
+          },
+          {
+            id: Date.now() + Math.random(),
+            title: "Battle the Ferocious Beasts",
+            tasks: [
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Train in advanced combat techniques",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Find and exploit creature weaknesses",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Assemble a team of skilled warriors",
+              },
+            ],
+            labels: [],
+            desc: "Engage in epic battles against fearsome creatures that roam the land, testing your strength and valor.",
+          },
+        ],
+      },
+      {
+        id: Date.now() + Math.random() * 2,
+        title: "Done",
+        cards: [
+          {
+            id: Date.now() + Math.random(),
+            title: "Uncover the Secrets of the Ancient Temple",
+            tasks: [
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Solve intricate puzzles",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Invoke ancient incantations",
+              },
+              {
+                id: Date.now() + Math.random(),
+                completed: false,
+                text: "Face the guardians of the temple",
+              },
+            ],
+            labels: [],
+            desc: "Embark on a mystical journey to unlock the hidden wisdom and power of the ancient temple.",
+          },
+        ],
+      },
+    ];
+    
+    
+    
+  });
+
+  useEffect(() => {
+    localStorage.setItem("kanban", JSON.stringify(boards));
+  }, [boards]);
+
+
+
   
   const [targetCard, setTargetCard] = useState({
     bid: "",
@@ -178,9 +322,7 @@ Update the state with the modified tempBoards array, triggering a re-render.
     });
   };
 
-  useEffect(() => {
-    localStorage.setItem("prac-kanban", JSON.stringify(boards));
-  }, [boards]);
+ 
 
  
 

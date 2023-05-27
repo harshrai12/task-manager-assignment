@@ -118,7 +118,7 @@ function CardInfo(props) {
         <div className="cardinfo_box">
           <div className="cardinfo_box_title">
             <CheckSquare />
-            <p>Tasks</p>
+            <p >Tasks</p>
           </div>
           <div className="cardinfo_box_progress-bar">
             <div
@@ -131,11 +131,12 @@ function CardInfo(props) {
           <div className="cardinfo_box_task_list">
             {values.tasks?.map((item) => (
               <div key={item.id} className="cardinfo_box_task_checkbox">
+             
                 <input
                   type="checkbox"
                   defaultChecked={item.completed}
                   onChange={(event) =>
-                    updateTask(item.id, event.target.checked)
+                  updateTask(item.id, event.target.checked)
                   }
                 />
                 <p className={item.completed ? "completed" : ""}>{item.text}</p>
@@ -143,7 +144,6 @@ function CardInfo(props) {
               </div>
             ))}
           </div>
-          
           <Editable
             text={"Add Subtask"}
             placeholder="Enter task"
