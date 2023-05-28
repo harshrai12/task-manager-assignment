@@ -286,43 +286,56 @@ Update the state with the modified tempBoards array, triggering a re-render.
 
   const dragEnded = (bid, cid) => {
     let s_boardIndex, s_cardIndex, t_boardIndex, t_cardIndex;
+  
+    // Find the index of the source board in the 'boards' array
     s_boardIndex = boards.findIndex((item) => item.id === bid);
-    if (s_boardIndex < 0) return;
-
-    s_cardIndex = boards[s_boardIndex]?.cards?.findIndex(
-      (item) => item.id === cid
-    );
-    if (s_cardIndex < 0) return;
-
+    if (s_boardIndex < 0) return; // If source board is not found, exit the function
+  
+    // Find the index of the source card within the source board
+    s_cardIndex = boards[s_boardIndex]?.cards?.findIndex((item) => item.id === cid);
+    if (s_cardIndex < 0) return; // If source card is not found, exit the function
+  
+    // Find the index of the target board in the 'boards' array
     t_boardIndex = boards.findIndex((item) => item.id === targetCard.bid);
-    if (t_boardIndex < 0) return;
-
-    t_cardIndex = boards[t_boardIndex]?.cards?.findIndex(
-      (item) => item.id === targetCard.cid
-    );
-    if (t_cardIndex < 0) return;
-
+    if (t_boardIndex < 0) return; // If target board is not found, exit the function
+  
+    // Find the index of the target card within the target board
+    t_cardIndex = boards[t_boardIndex]?.cards?.findIndex((item) => item.id === targetCard.cid);
+    if (t_cardIndex < 0) return; // If target card is not found, exit the function
+  
+    // Create a copy of the 'boards' array
     const tempBoards = [...boards];
+  
+    // Get the source card from the source board
     const sourceCard = tempBoards[s_boardIndex].cards[s_cardIndex];
+  
+    // Remove the source card from the source board using splice
     tempBoards[s_boardIndex].cards.splice(s_cardIndex, 1);
+  
+    // Insert the source card at the target card's index within the target board using splice
     tempBoards[t_boardIndex].cards.splice(t_cardIndex, 0, sourceCard);
+  
+    // Update the 'boards' state with the modified 'tempBoards' array
     setBoards(tempBoards);
-
+  
+    // Reset the target card values to empty
     setTargetCard({
       bid: "",
       cid: "",
     });
   };
-
+  
   const dragEntered = (bid, cid) => {
+    // If the current target card is the same as the entered card, return early
     if (targetCard.cid === cid) return;
+  
+    // Set the target card to the entered card
     setTargetCard({
       bid,
       cid,
     });
   };
-
- 
+  
 
  
 
