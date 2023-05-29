@@ -344,6 +344,18 @@ Update the state with the modified tempBoards array, triggering a re-render.
       <div className="app_nav">
         <h1>Kanban Board</h1>
         <button onClick={handletheme} className="theme"> Switch theme</button>
+        <div className="add_task_board">
+        <Editable
+          displayClass="app_boards_add-board"
+          editClass="app_boards_add-board_edit"
+          placeholder="Enter Board Name"
+          text="Add TaskBoard"
+          buttonText="Add Board"
+          // Specify the callback function to be invoked when the form is submitted
+          onSubmit={addboardHandler}
+        />
+        </div>
+        
         <div>
     </div>
       </div>
@@ -362,15 +374,7 @@ Update the state with the modified tempBoards array, triggering a re-render.
             />
           ))}
           <div className="app_boards_last">
-          <Editable
-          displayClass="app_boards_add-board"
-          editClass="app_boards_add-board_edit"
-          placeholder="Enter Board Name"
-          text="Add Board"
-          buttonText="Add Board"
-          // Specify the callback function to be invoked when the form is submitted
-          onSubmit={addboardHandler}
-        />
+          
           </div>
         </div>
       </div>
